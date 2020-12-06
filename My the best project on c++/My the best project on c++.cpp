@@ -36,6 +36,8 @@ struct MyGame {
 };
 
 bool Checker;
+int Turn;
+int Counter;
 
 MyGame*Create() {
     srand(time(NULL));
@@ -77,11 +79,11 @@ void Show(MyGame* Game) {
     for (int i = 0; i <= Game->field->x; i++)
         cout << "#";
     cout << endl;
+    cout << "Score: " << Counter;
 
 }
 
-int Turn;
-int Counter;
+
 
 int Logic(MyGame*Game) {
     if (_kbhit()) {
@@ -112,6 +114,7 @@ int Logic(MyGame*Game) {
 }
     }
     if (Game->snake->x == Game->fruit->x and Game->snake->y == Game->fruit->y) {
+        Counter += 10;
         Game->fruit->x = rand() % 38 + 1;
         Game->fruit->y = rand() % 18 + 1;
     }
@@ -136,7 +139,7 @@ int main()
                 Game->snake->x++;
             if (Turn == 4)
                 Game->snake->x--;
-            cout << Counter;
+            
         
     }
 }
