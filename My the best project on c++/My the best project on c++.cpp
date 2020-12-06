@@ -80,7 +80,7 @@ void Show(MyGame* Game) {
 
 }
 
-
+int Turn; 
 
 void Logic(MyGame*Game) {
     if (_kbhit()) {
@@ -90,21 +90,24 @@ void Logic(MyGame*Game) {
                 Checker = true;
                 break;
 
-            case UP:
-                Game->snake->y--;
-                
-                break;
+            case UP: 
+                 Game->snake->y--;
+                 Turn = 1;
+              break;
 
             case DOWN:
                 Game->snake->y++;
+                Turn = 2;
                 break;
 
             case RIGHT:
                 Game->snake->x++;
+                Turn = 3;
                 break;
 
             case LEFT:
                 Game->snake->x--;
+                Turn = 4;
                 break;
 }
     }
@@ -112,9 +115,13 @@ void Logic(MyGame*Game) {
         Game->fruit->x = rand() % 39 + 1;
         Game->fruit->y = rand() % 19 + 1;
     }
-    if (Game->snake->x == 0 or Game->snake->y == 0 or Game->snake->x == Game->field->x or Game->snake->y == Game->field->y)
+    if (Game->snake->x == -1 or Game->snake->y == -1 or Game->snake->x == Game->field->x or Game->snake->y == Game->field->y)
         Checker = true;
-    
+    /*if (Turn == 1) {
+        while(true) {
+            Game->snake->y--;
+        }
+    }*/
 
 }
 
