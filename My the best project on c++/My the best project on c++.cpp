@@ -1,9 +1,16 @@
 ﻿#include <iostream>
 #include <ctime>
+#include <conio.h>
 
 using namespace std;
 
-    
+#define SPACE 32
+#define UP 72
+#define DOWN 80
+#define LEFT 75
+#define RIGHT 77
+
+
 
 struct Field {
     int x;
@@ -28,8 +35,11 @@ struct MyGame {
     Snake* snake;
 };
 
+bool Checker;
+
 MyGame*Create() {
     srand(time(NULL));
+
     MyGame* Game = new MyGame;
     Game->field = new Field;
     Game->fruit = new Fruit;
@@ -47,11 +57,8 @@ MyGame*Create() {
     return Game;
 }
 
-void FrameShow(MyGame* Game) {
-
-}
-
 void Show(MyGame* Game) {
+    system("cls");
     for (int i = 0; i <= Game->field->x; i++)
         cout << "#";
     cout << endl;
@@ -72,10 +79,48 @@ void Show(MyGame* Game) {
     cout << endl;
 
 }
+
+void checker() {
+    Checker = false;
+}
+
+void Logic(MyGame*Game) {
+    if (_kbhit()) {
+        switch (_getch()) {
+           
+            case SPACE:
+                Checker = true;
+                break;
+
+            case UP:
+                Game->snake->y--;
+                break;
+
+            case DOWN:
+                Game->snake->y++;
+                break;
+
+            case RIGHT:
+                Game->snake->x++;
+                break;
+
+            case LEFT:
+                Game->snake->x--;
+                break;
+}
+    }
+
+
+}
+
 int main()
 {
-    MyGame* Game = Create();
-    Show(Game);
+        MyGame* Game = Create();
+    while (!Checker) {
+        Show(Game);
+        Logic(Game);
+    }
+    
 }
 
 
