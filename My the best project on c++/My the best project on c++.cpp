@@ -80,9 +80,10 @@ void Show(MyGame* Game) {
 
 }
 
-int Turn; 
+int Turn;
+int Counter;
 
-void Logic(MyGame*Game) {
+int Logic(MyGame*Game) {
     if (_kbhit()) {
         switch (_getch()) {
            
@@ -91,48 +92,51 @@ void Logic(MyGame*Game) {
                 break;
 
             case UP: 
-                 Game->snake->y--;
-                 Turn = 1;
+                 return Turn = 1;
               break;
 
             case DOWN:
-                Game->snake->y++;
+                
                 Turn = 2;
                 break;
 
             case RIGHT:
-                Game->snake->x++;
+                
                 Turn = 3;
                 break;
 
             case LEFT:
-                Game->snake->x--;
+                
                 Turn = 4;
                 break;
 }
     }
     if (Game->snake->x == Game->fruit->x and Game->snake->y == Game->fruit->y) {
-        Game->fruit->x = rand() % 39 + 1;
-        Game->fruit->y = rand() % 19 + 1;
+        Game->fruit->x = rand() % 38 + 1;
+        Game->fruit->y = rand() % 18 + 1;
     }
     if (Game->snake->x == -1 or Game->snake->y == -1 or Game->snake->x == Game->field->x or Game->snake->y == Game->field->y)
         Checker = true;
-    /*if (Turn == 1) {
-        while(true) {
-            Game->snake->y--;
-        }
-    }*/
-
+    if (Game->snake->x == Game->fruit->x and Game->snake->y == Game->fruit->y)
+        Counter += 10;
 }
 
 int main()
 {
-        MyGame* Game = Create();
+
+    MyGame* Game = Create();
     while (!Checker) {
         Show(Game);
         Logic(Game);
+        if (Turn == 1) 
+            Game->snake->y--;
+            if (Turn == 2)
+                Game->snake->y++;
+            if (Turn == 3)
+                Game->snake->x++;
+            if (Turn == 4)
+                Game->snake->x--;
+            cout << Counter;
+        
     }
-    
 }
-
-
