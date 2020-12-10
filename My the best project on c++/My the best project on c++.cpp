@@ -59,6 +59,10 @@ MyGame*Create() {
     return Game;
 }
 
+void score() {
+
+}
+
 void Show(MyGame* Game) {
     system("cls");
     for (int i = 0; i <= Game->field->x; i++)
@@ -85,7 +89,7 @@ void Show(MyGame* Game) {
 
 
 
-int Logic(MyGame*Game) {
+void Logic(MyGame*Game) {
     if (_kbhit()) {
         switch (_getch()) {
            
@@ -94,7 +98,7 @@ int Logic(MyGame*Game) {
                 break;
 
             case UP: 
-                 return Turn = 1;
+                  Turn = 1;
               break;
 
             case DOWN:
@@ -115,13 +119,23 @@ int Logic(MyGame*Game) {
     }
     if (Game->snake->x == Game->fruit->x and Game->snake->y == Game->fruit->y) {
         Counter += 10;
-        Game->fruit->x = rand() % 38 + 1;
+        Game->fruit->x = rand() % 37 + 1;
         Game->fruit->y = rand() % 18 + 1;
     }
-    if (Game->snake->x == -1 or Game->snake->y == -1 or Game->snake->x == Game->field->x or Game->snake->y == Game->field->y)
+    if (Game->snake->x == -1 or Game->snake->y == -1 or Game->snake->x == Game->field->x-1 or Game->snake->y == Game->field->y)
         Checker = true;
-    if (Game->snake->x == Game->fruit->x and Game->snake->y == Game->fruit->y)
-        Counter += 10;
+    
+}
+
+void Automove(MyGame*Game) {
+    if (Turn == 1)
+        Game->snake->y--;
+    if (Turn == 2)
+        Game->snake->y++;
+    if (Turn == 3)
+        Game->snake->x++;
+    if (Turn == 4)
+        Game->snake->x--;
 }
 
 int main()
@@ -131,15 +145,6 @@ int main()
     while (!Checker) {
         Show(Game);
         Logic(Game);
-        if (Turn == 1) 
-            Game->snake->y--;
-            if (Turn == 2)
-                Game->snake->y++;
-            if (Turn == 3)
-                Game->snake->x++;
-            if (Turn == 4)
-                Game->snake->x--;
-            
-        
+        Automove(Game);
     }
 }
